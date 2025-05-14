@@ -32,13 +32,19 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@v5
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> cb11801 (123)
 
       - name: Install dependencies
         run: npm install
       - name: Install 2
         run: npm ci
+<<<<<<< HEAD
 =======
 >>>>>>> e6b71ed (asdasd pusasdasasdasd)
+=======
+>>>>>>> cb11801 (123)
       - name: Build with Jekyll
         uses: actions/jekyll-build-pages@v1
         with:
@@ -48,6 +54,9 @@ jobs:
         uses: actions/upload-pages-artifact@v3
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> cb11801 (123)
       # Run HTMLHint, capture its output but never fail the job yet
       - name: Run HTMLHint
         id: htmlhint
@@ -75,8 +84,11 @@ jobs:
       
 
 
+<<<<<<< HEAD
 =======
 >>>>>>> e6b71ed (asdasd pusasdasasdasd)
+=======
+>>>>>>> cb11801 (123)
   # Deployment job
   deploy:
     environment:
