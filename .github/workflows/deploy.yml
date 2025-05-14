@@ -18,47 +18,4 @@ jobs:
         with:
           node-version: '18'
 
-      - name: Install dependencies
-        run: npm install
-      - name: Install 2
-        run: npm ci
-
-      - name: Build site
-        run: |
-          # If using Jekyll:
-          gem install bundler jekyll
-          bundle install
-          bundle exec jekyll build
-          # Or for Hugo / other static-site generators, replace with the build command.
-
-      # Run HTMLHint, capture its output but never fail the job yet
-      - name: Run HTMLHint
-        id: htmlhint
-        run: |
-          mkdir -p reports
-          npm run lint:html 2>&1 | tee reports/htmlhint.log || true
-          echo "report<<EOF" >> $GITHUB_OUTPUT
-          cat reports/htmlhint.log >> $GITHUB_OUTPUT
-          echo "EOF" >> $GITHUB_OUTPUT
-
-      # If on a PR and there were errors (exit code non-zero), post or update a comment
-      - name: Comment HTMLHint results on PR
-        if: ${{ github.event_name == 'pull_request' && steps.htmlhint.outcome == 'failure' }}
-        uses: peter-evans/create-or-update-comment@v3
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          issue-number: ${{ github.event.pull_request.number }}
-          body: |
-            ## 🚨 HTMLHint Report
-            The following issues were found when linting your HTML:
-            ```
-            ${{ steps.htmlhint.outputs.report }}
-            ```
-            Please address these before merging.
-      
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist
 
